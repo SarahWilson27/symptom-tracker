@@ -1,32 +1,12 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  margin: 0;
-  padding: 0;
+  margin: 20px;
 }
-.container {
-  max-width: 600px;
-  margin: auto;
-  background: white;
-  padding: 20px;
-}
-input, textarea {
+textarea, input {
   width: 100%;
   margin-bottom: 10px;
-  padding: 8px;
-}
-button {
-  padding: 10px 20px;
-  margin-right: 10px;
-  background: #00897b;
-  color: white;
-  border: none;
-}
-#entries {
-  margin-top: 20px;
 }
 .entry {
-  border-top: 1px solid #ccc;
-  padding: 10px 0;
+  margin-top: 20px;
 }
