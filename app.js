@@ -1,4 +1,6 @@
 
+console.log("app.js loaded!");
+
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM fully loaded. Attempting to load saved entries...");
   displayEntries();
@@ -68,18 +70,19 @@ function displayEntries() {
     console.error("Table body #log-table tbody not found!");
     return;
   }
+
   tbody.innerHTML = '';
   entries.forEach(entry => {
     const row = tbody.insertRow();
     row.innerHTML = `
-      <td>${entry.date}</td>
-      <td>${entry.symptoms}</td>
-      <td>${entry.water}</td>
-      <td>${entry.caffeine}</td>
-      <td>${entry.treatment}</td>
-      <td>${entry.sleep}</td>
-      <td>${entry.treatmentEffect}</td>
-      <td>${entry.notes}</td>
+      <td>${entry.date || '-'}</td>
+      <td>${entry.symptoms || '-'}</td>
+      <td>${entry.water || '-'}</td>
+      <td>${entry.caffeine || '-'}</td>
+      <td>${entry.treatment || '-'}</td>
+      <td>${entry.sleep || '-'}</td>
+      <td>${entry.treatmentEffect || '-'}</td>
+      <td>${entry.notes || '-'}</td>
     `;
   });
 }
