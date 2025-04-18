@@ -14,6 +14,9 @@
       text-align: center;
     }
     form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
       background: #fff;
       padding: 1em;
       border-radius: 5px;
@@ -43,6 +46,8 @@
       gap: 0.5em;
     }
     table {
+      margin-top: 2em;
+      font-size: 0.95em;
       width: 100%;
       border-collapse: collapse;
       background: #fff;
@@ -79,6 +84,7 @@
       <label><input type="checkbox" value="Crackling">Crackling</label>
       <label><input type="checkbox" value="Blocked Ear">Blocked Ear</label>
       <label><input type="checkbox" value="Symptom Free">Symptom Free</label>
+       <label><input type="checkbox" value="Jaw Pain">Jaw Pain</label>
     </div>
 
     <label for="water">Water Intake (litres):</label>
@@ -89,6 +95,14 @@
 
     <label for="treatment">Treatments Tried:</label>
     <textarea id="treatment" rows="2"></textarea>
+
+    <label for="treatmentEffect">Did treatment help?</label>
+    <select id="treatmentEffect">
+      <option value="">Select</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+      <option value="Unsure">Unsure</option>
+    </select>
 
     <label for="sleep">Sleep Quality (optional):</label>
     <input type="text" id="sleep" placeholder="e.g. 7 hours, good">
