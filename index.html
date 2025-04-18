@@ -3,150 +3,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Symptom Tracker</title>
     <style>
-        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 6px; }
-        th { background-color: #f2f2f2; }
+        body { font-family: Arial; margin: 20px; }
+        label { display: block; margin-top: 10px; }
+        input, select, textarea { width: 100%; padding: 6px; margin-top: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        button { margin-right: 5px; }
     </style>
-
-    <script>
-        window.addEventListener("DOMContentLoaded", () => {
-            // Prefill the date input with today's date
-            const today = new Date().toISOString().split('T')[0];
-            const dateInput = document.getElementById('date');
-            if (dateInput && !dateInput.value) {
-                dateInput.value = today;
-            }
-
-            // Re-render saved logs on page load
-            renderLogs();
-
-            // Set up caffeine estimation
-            const caffeineInput = document.getElementById('caffeine');
-            const caffeineMg = document.getElementById('caffeine-mg');
-
-            if (caffeineInput && caffeineMg) {
-                caffeineInput.addEventListener("input", () => {
-                    const estimated = estimateCaffeine(caffeineInput.value);
-                    caffeineMg.textContent = estimated;
-                });
-            }
-        });
-    </script>
-    </head>
-
+</head>
 <body>
     <h1>Symptom Tracker</h1>
-    <form id="symptom-form">
-
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date"><br><br>
-
-        <label for="primary-symptom">Primary Symptom Type:</label>
-        <select id="primary-symptom" name="primary-symptom">
-            <option value="PET">PET (Patulous Eustachian Tube)</option>
-            <option value="ETD">ETD (Eustachian Tube Dysfunction)</option>
-            <option value="Both">Both</option>
-        </select><br><br>
-
-        <fieldset>
-            <legend>Symptoms:</legend>
-            <label><input type="checkbox" name="symptoms" value="Autophony"> Autophony</label><br>
-            <label><input type="checkbox" name="symptoms" value="Blocked ear feeling"> Blocked ear feeling</label><br>
-            <label><input type="checkbox" name="symptoms" value="Crackling"> Crackling</label><br>
-            <label><input type="checkbox" name="symptoms" value="Popping"> Popping</label><br>
-            <label><input type="checkbox" name="symptoms" value="Squeaking"> Squeaking</label><br>
-            <label><input type="checkbox" name="symptoms" value="Ear fullness"> Ear fullness</label><br>
-            <label><input type="checkbox" name="symptoms" value="Tinnitus"> Tinnitus</label><br>
-            <label><input type="checkbox" name="symptoms" value="Improvement lying down"> Improvement when lying down</label><br>
-            <label><input type="checkbox" name="symptoms" value="Worse lying down"> Worse when lying down</label><br>
-            <label><input type="checkbox" name="symptoms" value="Sound sensitivity"> Sound sensitivity</label><br>
-            <label><input type="checkbox" name="symptoms" value="Ear pain"> Ear pain</label><br>
-            <label><input type="checkbox" name="symptoms" value="Jaw pain"> Jaw pain</label><br>
-            <label><input type="checkbox" name="symptoms" value="Dizziness"> Dizziness</label><br>
-            <label><input type="checkbox" name="symptoms" value="Clicking"> Clicking</label><br>
-            <label><input type="checkbox" name="symptoms" value="Improvement with cold"> Improvement during mild cold</label><br>
-            <label for="other-symptom">Other:</label>
-            <input type="text" id="other-symptom" name="other-symptom"><br>
-        </fieldset><br>
-
-        <label for="caffeine">Caffeine Intake:</label>
-        <input type="text" id="caffeine" name="caffeine">
-        <p>Estimated Caffeine: <span id="caffeine-mg">0</span> mg</p><br>
-
-        <label for="water">Water Intake (ml):</label>
-        <input type="number" id="water" name="water"><br><br>
-
-        <label for="sleep-quality">Sleep Quality (1–10):</label>
-        <input type="number" id="sleep-quality" name="sleep-quality"><br><br>
-
-        <label for="sleep-hours">Sleep Hours (optional):</label>
-        <input type="number" id="sleep-hours" name="sleep-hours" step="0.5"><br><br>
-
-        <label for="treatments">Treatments Tried:</label>
-        <input type="text" id="treatments" name="treatments"><br><br>
-
-        <label for="relief">Relief from treatment?</label>
-        <select id="relief" name="relief">
-            <option value="">-- Select --</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select><br><br>
-
-        <label for="notes">General Notes:</label><br>
-        <textarea id="notes" name="notes" rows="4" cols="50"></textarea><br><br>
-
+    <form id="tracker-form">
+        <label>Date
+            <input type="date" id="date" name="date">
+        </label>
+        <label>Primary Symptom
+            <select id="primary-symptom" name="primary-symptom">
+                <option value="PET">PET</option>
+                <option value="ETD">ETD</option>
+                <option value="Both">Both</option>
+            </select>
+        </label>
+        <label>Symptoms</label>
+        <label><input type="checkbox" name="symptoms" value="Autophony"> Autophony</label>
+        <label><input type="checkbox" name="symptoms" value="Fullness"> Fullness</label>
+        <label><input type="checkbox" name="symptoms" value="Popping"> Popping</label>
+        <label><input type="checkbox" name="symptoms" value="Crackling"> Crackling</label>
+        <label><input type="checkbox" name="symptoms" value="Squeaking"> Squeaking</label>
+        <label><input type="checkbox" name="symptoms" value="Tinnitus"> Tinnitus</label>
+        <input type="text" id="other-symptom" placeholder="Other symptom">
+        <label>Caffeine Intake
+            <input type="text" id="caffeine" name="caffeine" placeholder="e.g. 1x coffee, 1x Coke">
+        </label>
+        <div>Estimated Caffeine (mg): <span id="caffeine-mg">0</span></div>
+        <label>Water Intake (L)
+            <input type="number" id="water" name="water" step="0.1">
+        </label>
+        <label>Sleep Quality
+            <select id="sleep-quality" name="sleep-quality">
+                <option value="">Select</option>
+                <option value="Good">Good</option>
+                <option value="Average">Average</option>
+                <option value="Poor">Poor</option>
+            </select>
+        </label>
+        <label>Sleep Hours (optional)
+            <input type="number" id="sleep-hours" name="sleep-hours" step="0.1">
+        </label>
+        <label>Treatments Tried
+            <textarea id="treatments" name="treatments"></textarea>
+        </label>
+        <label>Relief From Treatment
+            <select id="relief" name="relief">
+                <option value="">Select</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+        </label>
+        <label>Notes
+            <textarea id="notes" name="notes"></textarea>
+        </label>
         <button type="submit">Save Entry</button>
     </form>
 
     <h2>Saved Logs</h2>
-    <button onclick="exportLogs()">Export to CSV</button>
-    <table id="log-table">
+    <table>
         <thead>
             <tr>
-                <th>Date</th><th>Type</th><th>Symptoms</th><th>Caffeine</th><th>Caffeine (mg)</th>
-                <th>Water</th><th>Sleep</th><th>Hours</th><th>Treatments</th><th>Relief</th><th>Notes</th><th>Actions</th>
+                <th>Date</th><th>Primary</th><th>Symptoms</th><th>Caffeine</th><th>mg</th>
+                <th>Water</th><th>Sleep Q.</th><th>Hours</th><th>Treatments</th><th>Relief</th><th>Notes</th><th>Actions</th>
             </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="table-body"></tbody>
     </table>
 
     <script>
-        const form = document.getElementById('symptom-form');
+        const form = document.getElementById('tracker-form');
+        const tableBody = document.getElementById('table-body');
         const caffeineInput = document.getElementById('caffeine');
         const caffeineMg = document.getElementById('caffeine-mg');
-        const tableBody = document.querySelector('#log-table tbody');
+        let editIndex = null;
 
-        function estimateCaffeine(text) {
-            const lower = text.toLowerCase();
+        function estimateCaffeine(input) {
+            const map = { coffee: 95, coke: 34, tea: 47, espresso: 63, energy: 80 };
             let total = 0;
-            if (lower.includes("coffee")) total += 95;
-            if (lower.includes("coke")) total += 34;
-            if (lower.includes("tea")) total += 26;
-            if (lower.includes("energy")) total += 80;
+            const entries = input.toLowerCase().split(/[,\n]/);
+            for (let item of entries) {
+                let matched = false;
+                for (let key in map) {
+                    if (item.includes(key)) {
+                        let count = parseInt(item) || 1;
+                        total += count * map[key];
+                        matched = true;
+                        break;
+                    }
+                }
+            }
             return total;
         }
 
         function renderLogs() {
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             tableBody.innerHTML = '';
-            logs.forEach((log, index) => {
+            logs.forEach((log, i) => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${log.date}</td>
-                    <td>${log.primarySymptom}</td>
-                    <td>${log.symptoms.join(", ")}</td>
-                    <td>${log.caffeine}</td>
-                    <td>${log.caffeineMg}</td>
-                    <td>${log.water}</td>
-                    <td>${log.sleepQuality}</td>
-                    <td>${log.sleepHours}</td>
-                    <td>${log.treatments}</td>
-                    <td>${log.relief}</td>
-                    <td>${log.notes}</td>
+                    <td>${log.date}</td><td>${log.primarySymptom}</td><td>${log.symptoms.join(", ")}</td>
+                    <td>${log.caffeine}</td><td>${log.caffeineMg}</td><td>${log.water}</td>
+                    <td>${log.sleepQuality}</td><td>${log.sleepHours}</td><td>${log.treatments}</td>
+                    <td>${log.relief}</td><td>${log.notes}</td>
                     <td>
-                        <button onclick="deleteLog(${index})">Delete</button>
+                        <button onclick="editLog(${i})">Edit</button>
+                        <button onclick="deleteLog(${i})">Delete</button>
                     </td>
                 `;
                 tableBody.appendChild(row);
@@ -154,67 +124,14 @@
         }
 
         function deleteLog(index) {
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             logs.splice(index, 1);
             localStorage.setItem('logs', JSON.stringify(logs));
             renderLogs();
         }
 
-        function exportLogs() {
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
-            let csv = 'Date,Type,Symptoms,Caffeine,Caffeine(mg),Water,Sleep,Sleep Hours,Treatments,Relief,Notes
-';
-            logs.forEach(log => {
-                csv += `"${log.date}","${log.primarySymptom}","${log.symptoms.join(" | ")}","${log.caffeine}",${log.caffeineMg},${log.water},${log.sleepQuality},${log.sleepHours},"${log.treatments}","${log.relief}","${log.notes}"
-`;
-            });
-            const blob = new Blob([csv], {{ type: 'text/csv' }});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'symptom_logs.csv';
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const log = {
-                date: formData.get("date"),
-                primarySymptom: formData.get("primary-symptom"),
-                symptoms: formData.getAll("symptoms").concat(formData.get("other-symptom") || "").filter(Boolean),
-                caffeine: formData.get("caffeine"),
-                caffeineMg: estimateCaffeine(formData.get("caffeine")),
-                water: formData.get("water"),
-                sleepQuality: formData.get("sleep-quality"),
-                sleepHours: formData.get("sleep-hours"),
-                treatments: formData.get("treatments"),
-                relief: formData.get("relief"),
-                notes: formData.get("notes")
-            };
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
-            logs.push(log);
-            localStorage.setItem('logs', JSON.stringify(logs));
-            form.reset();
-            document.getElementById('date').value = new Date().toISOString().split('T')[0];
-            caffeineMg.textContent = 0;
-            renderLogs();
-        });
-
-        caffeineInput.addEventListener('input', () => {
-            caffeineMg.textContent = estimateCaffeine(caffeineInput.value);
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('date').value = new Date().toISOString().split('T')[0];
-            renderLogs();
-        });
-    
-        let editIndex = null;
-
-        function startEdit(index) {
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
+        function editLog(index) {
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             const log = logs[index];
             editIndex = index;
 
@@ -226,7 +143,6 @@
             document.getElementById('other-symptom').value = log.symptoms.find(s => 
                 !Array.from(document.querySelectorAll('input[name="symptoms"]')).some(cb => cb.value === s)
             ) || '';
-
             document.getElementById('caffeine').value = log.caffeine;
             document.getElementById('water').value = log.water;
             document.getElementById('sleep-quality').value = log.sleepQuality;
@@ -234,11 +150,10 @@
             document.getElementById('treatments').value = log.treatments;
             document.getElementById('relief').value = log.relief;
             document.getElementById('notes').value = log.notes;
-
             caffeineMg.textContent = log.caffeineMg;
         }
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', e => {
             e.preventDefault();
             const formData = new FormData(form);
             const log = {
@@ -254,7 +169,7 @@
                 relief: formData.get("relief"),
                 notes: formData.get("notes")
             };
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
+            const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             if (editIndex !== null) {
                 logs[editIndex] = log;
                 editIndex = null;
@@ -268,32 +183,14 @@
             renderLogs();
         });
 
-        function renderLogs() {
-            const logs = JSON.parse(localStorage.getItem('logs')) || [];
-            tableBody.innerHTML = '';
-            logs.forEach((log, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${log.date}</td>
-                    <td>${log.primarySymptom}</td>
-                    <td>${log.symptoms.join(", ")}</td>
-                    <td>${log.caffeine}</td>
-                    <td>${log.caffeineMg}</td>
-                    <td>${log.water}</td>
-                    <td>${log.sleepQuality}</td>
-                    <td>${log.sleepHours}</td>
-                    <td>${log.treatments}</td>
-                    <td>${log.relief}</td>
-                    <td>${log.notes}</td>
-                    <td>
-                        <button onclick="startEdit(${index})">Edit</button>
-                        <button onclick="deleteLog(${index})">Delete</button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
+        window.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            caffeineInput.addEventListener('input', () => {
+                const est = estimateCaffeine(caffeineInput.value);
+                caffeineMg.textContent = est;
             });
-        }
+            renderLogs();
+        });
     </script>
-
 </body>
 </html>
