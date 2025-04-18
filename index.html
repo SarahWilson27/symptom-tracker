@@ -9,7 +9,33 @@
         table, th, td { border: 1px solid black; border-collapse: collapse; padding: 6px; }
         th { background-color: #f2f2f2; }
     </style>
-</head>
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            // Prefill the date input with today's date
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('date');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = today;
+            }
+
+            // Re-render saved logs on page load
+            renderLogs();
+
+            // Set up caffeine estimation
+            const caffeineInput = document.getElementById('caffeine');
+            const caffeineMg = document.getElementById('caffeine-mg');
+
+            if (caffeineInput && caffeineMg) {
+                caffeineInput.addEventListener("input", () => {
+                    const estimated = estimateCaffeine(caffeineInput.value);
+                    caffeineMg.textContent = estimated;
+                });
+            }
+        });
+    </script>
+    </head>
+
 <body>
     <h1>Symptom Tracker</h1>
     <form id="symptom-form">
