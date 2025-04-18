@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#00897b"/>
+  <title>Symptom Tracker</title>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Symptom Tracker</h1>
+    <form id="entryForm">
+      <label>Symptom Type:</label>
+      <input type="text" id="symptomType"/>
+
+      <label>Triggers:</label>
+      <input type="text" id="triggers"/>
+
+      <label>Sleep Quality (1–10):</label>
+      <input type="number" id="sleepQuality"/>
+
+      <label>Hours Slept:</label>
+      <input type="number" step="0.1" id="sleepHours"/>
+
+      <label>Water Intake (L):</label>
+      <input type="number" step="0.1" id="waterIntake"/>
+
+      <label>Caffeine Intake (e.g. 1x coffee + 1x tea):</label>
+      <input type="text" id="caffeineIntake"/>
+      <p id="caffeineEstimate">Estimated Caffeine: 0 mg</p>
+
+      <label>Treatments Tried:</label>
+      <input type="text" id="treatments"/>
+
+      <label>Notes:</label>
+      <textarea id="notes"></textarea>
+
+      <button type="submit">Save Entry</button>
+    </form>
+
+    <div class="filter">
+      <label>Filter by Symptom Type:</label>
+      <input type="text" id="filterInput"/>
+      <button onclick="applyFilter()">Apply</button>
+      <button onclick="clearFilter()">Clear</button>
+    </div>
+
+    <div id="entries"></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

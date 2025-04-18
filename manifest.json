@@ -1,0 +1,14 @@
+
+{
+  "name": "Symptom Tracker",
+  "short_name": "Tracker",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00897b",
+  "icons": [{
+    "src": "icon.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }]
+}
