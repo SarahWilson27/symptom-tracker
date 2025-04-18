@@ -4,73 +4,62 @@
 <head>
   <meta charset="UTF-8">
   <title>Symptom Tracker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2em;
-      background-color: #f8f8f8;
-    }
-    h1 {
-      text-align: center;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5em;
-      background: #fff;
-      padding: 1em;
-      border-radius: 5px;
-      box-shadow: 0 0 5px #ccc;
-      margin-bottom: 2em;
-    }
-    label {
-      display: block;
-      margin-top: 1em;
-    }
-    input[type="text"],
-    input[type="number"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 0.5em;
-      margin-top: 0.25em;
-    }
-    .checkbox-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1em;
-    }
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-    }
-    table {
-      margin-top: 2em;
-      font-size: 0.95em;
-      width: 100%;
-      border-collapse: collapse;
-      background: #fff;
-      box-shadow: 0 0 5px #ccc;
-    }
-    th, td {
-      padding: 0.75em;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    th {
-      background: #eee;
-    }
-    button {
-      margin-top: 1em;
-      padding: 0.75em 1.5em;
-      background-color: #007BFF;
-      color: #fff;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-  </style>
+  
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    line-height: 1.6;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+
+  input, textarea, select {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+  }
+
+  th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  button {
+    margin: 2px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #2d89ef;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #1b5dbf;
+  }
+</style>
+
 </head>
 <body>
 
