@@ -2,13 +2,15 @@
 document.getElementById('tracker-form').addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const symptoms = document.getElementById('symptoms').value.trim();
+  const date = document.getElementById('date').value;
+  const checkedSymptoms = Array.from(document.querySelectorAll('#symptom-options input:checked'))
+                                .map(el => el.value)
+                                .join(', ');
   const water = document.getElementById('water').value;
   const caffeine = document.getElementById('caffeine').value.trim();
   const treatments = document.getElementById('treatments').value.trim();
   const sleep = document.getElementById('sleep').value;
 
-  // Caffeine estimation logic
   let estimate = 0;
   if (/coffee/i.test(caffeine)) estimate += 95;
   if (/coke/i.test(caffeine)) estimate += 34;
@@ -16,20 +18,27 @@ document.getElementById('tracker-form').addEventListener('submit', function(e) {
   if (/energy/i.test(caffeine)) estimate += 80;
   document.getElementById('caffeine-estimate').textContent = estimate + ' mg';
 
-  const entry = `
-    <div class="entry">
-      <strong>Symptoms:</strong> ${symptoms}<br/>
-      <strong>Water:</strong> ${water} L<br/>
-      <strong>Caffeine:</strong> ${caffeine} (${estimate} mg)<br/>
-      <strong>Treatments:</strong> ${treatments}<br/>
-      <strong>Sleep:</strong> ${sleep || 'Not entered'} hours
-    </div>
-    <hr/>
+  const table = document.getElementById('log-table');
+  const row = table.insertRow();
+  row.innerHTML = `
+    <td>${date}</td>
+    <td>${checkedSymptoms}</td>
+    <td>${water} L</td>
+    <td>${caffeine} (${estimate} mg)</td>
+    <td>${treatments}</td>
+    <td>${sleep || 'Not entered'} hrs</td>
   `;
 
-  document.getElementById('log').innerHTML += entry;
-
-  // Clear form fields after saving
   document.getElementById('tracker-form').reset();
   document.getElementById('caffeine-estimate').textContent = '0 mg';
 });
+
+function toggleColumn(index) {
+  const table = document.getElementById('log-table');
+  for (let row of table.rows) {
+    if (row.cells[index]) {
+      row.cells[index].style.display =
+        row.cells[index].style.display === 'none' ? '' : 'none';
+    }
+  }
+}
