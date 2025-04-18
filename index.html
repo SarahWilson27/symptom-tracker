@@ -26,7 +26,22 @@
                 <option value="Both">Both</option>
             </select>
         </label>
+        
         <label>Symptoms</label>
+        <label><input type="checkbox" name="symptoms" value="Autophony"> Autophony</label>
+        <label><input type="checkbox" name="symptoms" value="Fullness"> Fullness</label>
+        <label><input type="checkbox" name="symptoms" value="Popping"> Popping</label>
+        <label><input type="checkbox" name="symptoms" value="Crackling"> Crackling</label>
+        <label><input type="checkbox" name="symptoms" value="Squeaking"> Squeaking</label>
+        <label><input type="checkbox" name="symptoms" value="Tinnitus"> Tinnitus</label>
+        <label><input type="checkbox" name="symptoms" value="Feeling of movement/blockage"> Feeling of movement/blockage</label>
+        <label><input type="checkbox" name="symptoms" value="Pressure"> Pressure</label>
+        <label><input type="checkbox" name="symptoms" value="Muffled hearing"> Muffled hearing</label>
+        <label><input type="checkbox" name="symptoms" value="Pain"> Pain</label>
+        <label><input type="checkbox" name="symptoms" value="Clicking"> Clicking</label>
+        <label><input type="checkbox" name="symptoms" value="Jaw Pain"> Jaw Pain</label>
+        <input type="text" id="other-symptom" placeholder="Other symptom">
+
         <label><input type="checkbox" name="symptoms" value="Autophony"> Autophony</label>
         <label><input type="checkbox" name="symptoms" value="Fullness"> Fullness</label>
         <label><input type="checkbox" name="symptoms" value="Popping"> Popping</label>
@@ -68,8 +83,27 @@
         <button type="submit">Save Entry</button>
     </form>
 
+    
+    
     <h2>Saved Logs</h2>
+    <label>Filter by Primary Symptom:
+        <select id="filter-select">
+            <option value="">Show All</option>
+            <option value="PET">PET</option>
+            <option value="ETD">ETD</option>
+            <option value="Both">Both</option>
+        </select>
+    </label>
     <table>
+        <thead>
+            <tr>
+                <th>Date</th><th>Primary</th><th>Symptoms</th><th>Caffeine</th><th>mg</th>
+                <th>Water</th><th>Sleep Q.</th><th>Hours</th><th>Treatments</th><th>Relief</th><th>Notes</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+    </table>
+
         <thead>
             <tr>
                 <th>Date</th><th>Primary</th><th>Symptoms</th><th>Caffeine</th><th>mg</th>
@@ -105,9 +139,11 @@
         }
 
         function renderLogs() {
+            const filter = document.getElementById("filter-select").value;
             const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             tableBody.innerHTML = '';
             logs.forEach((log, i) => {
+                if (filter && log.primarySymptom !== filter) return;
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${log.date}</td><td>${log.primarySymptom}</td><td>${log.symptoms.join(", ")}</td>
@@ -127,7 +163,10 @@
             const logs = JSON.parse(localStorage.getItem('logs') || '[]');
             logs.splice(index, 1);
             localStorage.setItem('logs', JSON.stringify(logs));
-            renderLogs();
+            
+    document.getElementById('filter-select').addEventListener('change', renderLogs);
+    renderLogs();
+    
         }
 
         function editLog(index) {
@@ -180,7 +219,10 @@
             form.reset();
             document.getElementById('date').value = new Date().toISOString().split('T')[0];
             caffeineMg.textContent = 0;
-            renderLogs();
+            
+    document.getElementById('filter-select').addEventListener('change', renderLogs);
+    renderLogs();
+    
         });
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -189,7 +231,10 @@
                 const est = estimateCaffeine(caffeineInput.value);
                 caffeineMg.textContent = est;
             });
-            renderLogs();
+            
+    document.getElementById('filter-select').addEventListener('change', renderLogs);
+    renderLogs();
+    
         });
     </script>
 </body>
