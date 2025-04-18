@@ -9,6 +9,7 @@ document.getElementById('tracker-form').addEventListener('submit', function(e) {
   const water = document.getElementById('water').value;
   const caffeine = document.getElementById('caffeine').value.trim();
   const treatments = document.getElementById('treatments').value.trim();
+  const notes = document.getElementById('notes').value;
   const sleep = document.getElementById('sleep').value;
 
   let estimate = 0;
@@ -26,7 +27,7 @@ document.getElementById('tracker-form').addEventListener('submit', function(e) {
     <td>${water} L</td>
     <td>${caffeine} (${estimate} mg)</td>
     <td>${treatments}</td>
-    <td>${sleep || 'Not entered'} hrs</td>
+    <td>${sleep || 'Not entered'} hrs</td><td>${notes}</td>
   `;
 
   document.getElementById('tracker-form').reset();
@@ -42,3 +43,5 @@ function toggleColumn(index) {
     }
   }
 }
+
+document.querySelector('div').innerHTML += '<label><input type="checkbox" checked onchange="toggleColumn(6)"> Notes</label>';
