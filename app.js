@@ -189,3 +189,27 @@ function displayEntries() {
 
 // Show existing entries on load
 document.addEventListener('DOMContentLoaded', displayEntries);
+
+
+document.getElementById('exportCSV').addEventListener('click', () => {
+  const entries = JSON.parse(localStorage.getItem('entries') || '[]');
+  if (entries.length === 0) {
+    alert('No data to export.');
+    return;
+  }
+
+  const headers = Object.keys(entries[0]);
+  const csvRows = [
+    headers.join(','),
+    ...entries.map(entry => headers.map(h => `"${(entry[h] || '').replace(/"/g, '""')}"`).join(','))
+  ];
+
+  const csvContent = csvRows.join('\n');
+  const blob = new Blob([csvContent], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.setAttribute('href', url);
+  a.setAttribute('download', 'symptom_tracker_entries.csv');
+  a.click();
+});
