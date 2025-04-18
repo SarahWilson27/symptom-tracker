@@ -46,12 +46,6 @@
       gap: 0.5em;
     }
     table {
-      border-collapse: collapse;
-      border-radius: 8px;
-      overflow: hidden;
-      width: 100%;
-      background: #fff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
       margin-top: 2em;
       font-size: 0.95em;
       width: 100%;
@@ -60,9 +54,6 @@
       box-shadow: 0 0 5px #ccc;
     }
     th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
       padding: 0.75em;
       border: 1px solid #ccc;
       text-align: left;
@@ -79,10 +70,7 @@
       border-radius: 3px;
       cursor: pointer;
     }
-  tbody tr:nth-child(even) { background-color: #f9f9f9; }
-    tbody tr:hover { background-color: #f1f1f1; }
-    button { margin-right: 5px; padding: 4px 8px; font-size: 0.9em; }
-    </style>
+  </style>
 </head>
 <body>
 
@@ -96,6 +84,7 @@
       <label><input type="checkbox" value="Crackling">Crackling</label>
       <label><input type="checkbox" value="Blocked Ear">Blocked Ear</label>
       <label><input type="checkbox" value="Symptom Free">Symptom Free</label>
+       <label><input type="checkbox" value="Jaw Pain">Jaw Pain</label>
        <label><input type="checkbox" value="Jaw Pain">Jaw Pain</label>
     </div>
 
@@ -114,7 +103,9 @@
       <option value="Yes">Yes</option>
       <option value="No">No</option>
       <option value="Unsure">Unsure</option>
-    </select><label for="sleep">Sleep Quality (optional):</label>
+    </select>
+
+    <label for="sleep">Sleep Quality (optional):</label>
     <input type="text" id="sleep" placeholder="e.g. 7 hours, good">
 
     <label for="treatmentEffect">Did treatment help?</label>
@@ -225,7 +216,7 @@
       }
 
       tbody.innerHTML = '';
-      entries.forEach((entry, index) => {
+      entries.forEach(entry => {
         const row = tbody.insertRow();
         row.innerHTML = `
           <td>${entry.date || '-'}</td>
@@ -268,7 +259,7 @@
       localStorage.setItem('entries', JSON.stringify(entries));
       displayEntries();
     }
-  </script>
+</script>
 
 </body>
 </html>
