@@ -188,7 +188,36 @@ function displayEntries() {
 }
 
 // Show existing entries on load
-document.addEventListener('DOMContentLoaded', displayEntries);
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM fully loaded and parsed.");
+  displayEntries();
+});
+
+function displayEntries() {
+  const entries = JSON.parse(localStorage.getItem('entries') || '[]');
+  console.log("Loaded entries:", entries);
+  const tbody = document.querySelector("#log-table tbody");
+  if (!tbody) {
+    console.error("Table body not found!");
+    return;
+  }
+  tbody.innerHTML = '';
+  entries.forEach(entry => {
+    const row = tbody.insertRow();
+    row.innerHTML = `
+      <td>${entry.date}</td>
+      <td>${entry.symptoms}</td>
+      <td>${entry.water}</td>
+      <td>${entry.caffeine}</td>
+      <td>${entry.treatment}</td>
+      <td>${entry.sleep}</td>
+      <td>${entry.treatmentEffect}</td>
+      <td>${entry.notes}</td>
+    `;
+  });
+}
+
 
 
 document.getElementById('exportCSV').addEventListener('click', () => {
